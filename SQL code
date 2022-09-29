@@ -1,0 +1,42 @@
+CREATE TABLE Products (
+	Id INT IDENTITY PRIMARY KEY,
+	ProductName TEXT
+);
+
+CREATE TABLE Categories (
+	Id INT IDENTITY PRIMARY KEY,
+	CategoryName TEXT
+);
+
+INSERT INTO Products VALUES
+	('Молоко'),
+	('Яйца'),
+	('Хлеб'),
+	('Вода'),
+	('Помидоры');
+
+INSERT INTO Categories VALUES
+	('Молочные_изделия'),
+	('Мясо'),
+	('Хлебопродукты'),
+	('Овощи');
+
+CREATE TABLE ProductCategories (
+	ProductId INT FOREIGN KEY REFERENCES Products(Id),
+	CategoryId INT FOREIGN KEY REFERENCES Categories(Id),
+	PRIMARY KEY (ProductId)
+);
+
+INSERT INTO ProductCategories
+VALUES
+	(1, 1),
+	(2, 2),
+	(3, 3),
+	(5, 4);
+
+SELECT ProductName, CategoryName
+FROM Products
+LEFT JOIN ProductCategories
+	ON Products.Id = ProductCategories.ProductId
+LEFT JOIN Categories
+	ON ProductCategories.CategoryId = Categories.Id;
